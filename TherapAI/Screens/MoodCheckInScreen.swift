@@ -20,12 +20,12 @@ struct MoodCheckInScreen: View {
                         .font(.headline)
                         .foregroundColor(.black)
                     
-                    HStack(spacing: 24) {
+                    HStack(spacing: 16) {
                         ForEach(0..<moods.count, id: \.self) { idx in
                             Button(action: { selectedMood = idx }) {
                                 Text(moods[idx])
-                                    .font(.system(size: 36))
-                                    .padding()
+                                    .font(.system(size: 32))
+                                    .frame(width: 60, height: 60)
                                     .background(selectedMood == idx ? Color.purple.opacity(0.2) : Color.white)
                                     .clipShape(Circle())
                                     .overlay(

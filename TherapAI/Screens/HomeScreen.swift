@@ -1,31 +1,31 @@
 import SwiftUI
 
 struct HomeScreen: View {
+    @Binding var selectedTab: MainTab
+    
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color(.systemPurple).opacity(0.07).ignoresSafeArea()
-                VStack(spacing: 32) {
-                    Text("Home")
-                        .font(.largeTitle).bold()
-                        .foregroundColor(.black)
-                        .padding(.top, 24)
-                    
-                    VStack(spacing: 20) {
-                        NavigationLink(destination: MoodCheckInScreen()) {
-                            HomeCard(title: "Daily Mood Check-In", subtitle: "Log your mood for today", icon: "face.smiling")
-                        }
-                        NavigationLink(destination: JournalScreen()) {
-                            HomeCard(title: "Journal", subtitle: "Write about your thoughts and feelings", icon: "book.closed")
-                        }
-                        NavigationLink(destination: ChatScreen()) {
-                            HomeCard(title: "Talk to the AI Therapist", subtitle: "Chat with the AI about anything on your mind", icon: "bubble.left.and.bubble.right")
-                        }
+        ZStack {
+            Color(.systemPurple).opacity(0.07).ignoresSafeArea()
+            VStack(spacing: 32) {
+                Text("Home")
+                    .font(.largeTitle).bold()
+                    .foregroundColor(.black)
+                    .padding(.top, 24)
+                
+                VStack(spacing: 20) {
+                    Button(action: { selectedTab = .mood }) {
+                        HomeCard(title: "Daily Mood Check-In", subtitle: "Log your mood for today", icon: "face.smiling")
                     }
-                    Spacer()
+                    Button(action: { selectedTab = .journal }) {
+                        HomeCard(title: "Journal", subtitle: "Write about your thoughts and feelings", icon: "book.closed")
+                    }
+                    Button(action: { selectedTab = .chat }) {
+                        HomeCard(title: "Talk to the AI Therapist", subtitle: "Chat with the AI about anything on your mind", icon: "bubble.left.and.bubble.right")
+                    }
                 }
-                .padding(.horizontal, 24)
+                Spacer()
             }
+            .padding(.horizontal, 24)
         }
     }
 }
@@ -62,6 +62,6 @@ struct HomeCard: View {
 
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreen()
+        HomeScreen(selectedTab: .constant(.home))
     }
 } 
