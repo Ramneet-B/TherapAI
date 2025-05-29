@@ -13,6 +13,7 @@ enum MainTab: Hashable {
 
 struct ContentView: View {
     @State private var selectedTab: MainTab = .home
+    @StateObject private var dataService = DataService.shared
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -23,18 +24,21 @@ struct ContentView: View {
                 }
                 .tag(MainTab.home)
             MoodCheckInScreen()
+                .environmentObject(dataService.moodViewModel)
                 .tabItem {
                     Image(systemName: "face.smiling")
                     Text("Mood")
                 }
                 .tag(MainTab.mood)
             JournalScreen()
+                .environmentObject(dataService.journalViewModel)
                 .tabItem {
                     Image(systemName: "book.closed")
                     Text("Journal")
                 }
                 .tag(MainTab.journal)
             ChatScreen()
+                .environmentObject(dataService.chatViewModel)
                 .tabItem {
                     Image(systemName: "bubble.left.and.bubble.right")
                     Text("Chat")
@@ -42,11 +46,13 @@ struct ContentView: View {
                 .tag(MainTab.chat)
         }
         .accentColor(.purple)
+        .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -1,10 +1,7 @@
 import SwiftUI
 
 struct MoodCheckInScreen: View {
-    @State private var selectedMood: Int? = nil
-    @State private var note: String = ""
-    
-    let moods = ["😞", "😐", "🙂", "😊", "😁"]
+    @EnvironmentObject var moodViewModel: MoodViewModel
     
     var body: some View {
         ZStack {
@@ -21,23 +18,23 @@ struct MoodCheckInScreen: View {
                         .foregroundColor(.black)
                     
                     HStack(spacing: 16) {
-                        ForEach(0..<moods.count, id: \.self) { idx in
-                            Button(action: { selectedMood = idx }) {
-                                Text(moods[idx])
+                        ForEach(0..<moodViewModel.moods.count, id: \.self) { idx in
+                            Button(action: { moodViewModel.selectedMood = idx }) {
+                                Text(moodViewModel.moods[idx])
                                     .font(.system(size: 32))
                                     .frame(width: 60, height: 60)
-                                    .background(selectedMood == idx ? Color.purple.opacity(0.2) : Color.white)
+                                    .background(moodViewModel.selectedMood == idx ? Color.purple.opacity(0.2) : Color.white)
                                     .clipShape(Circle())
                                     .overlay(
                                         Circle()
-                                            .stroke(selectedMood == idx ? Color.purple : Color.clear, lineWidth: 2)
+                                            .stroke(moodViewModel.selectedMood == idx ? Color.purple : Color.clear, lineWidth: 2)
                                     )
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
                     }
                     
-                    TextField("Add a note (optional)", text: $note)
+                    TextField("Add a note (optional)", text: $moodViewModel.note)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(14)
@@ -48,21 +45,27 @@ struct MoodCheckInScreen: View {
                 .cornerRadius(24)
                 .shadow(color: Color.purple.opacity(0.08), radius: 8, x: 0, y: 4)
                 
-                Button(action: {}) {
-                    Text("Continue")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.purple)
-                        .cornerRadius(16)
-                        .shadow(color: Color.purple.opacity(0.15), radius: 6, x: 0, y: 3)
+                Button(action: { moodViewModel.saveMoodEntry() }) {
+                    if moodViewModel.isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    } else {
+                        Text("Continue")
+                    }
                 }
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(moodViewModel.selectedMood != nil ? Color.purple : Color.gray)
+                .cornerRadius(16)
+                .shadow(color: Color.purple.opacity(0.15), radius: 6, x: 0, y: 3)
+                .disabled(moodViewModel.selectedMood == nil || moodViewModel.isLoading)
                 
                 HStack {
                     Image(systemName: "flame.fill")
                         .foregroundColor(.orange)
-                    Text("5-day streak")
+                    Text("\(moodViewModel.currentStreak)-day streak")
                         .font(.subheadline)
                         .foregroundColor(.purple)
                 }
@@ -72,11 +75,15 @@ struct MoodCheckInScreen: View {
             }
             .padding(.horizontal, 24)
         }
+        .alert("Mood Saved!", isPresented: $moodViewModel.showingSuccess) {
+            Button("OK") { }
+        }
     }
 }
 
 struct MoodCheckInScreen_Previews: PreviewProvider {
     static var previews: some View {
         MoodCheckInScreen()
+            .environmentObject(MoodViewModel())
     }
 } 
