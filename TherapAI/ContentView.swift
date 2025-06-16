@@ -8,12 +8,13 @@
 import SwiftUI
 
 enum MainTab: Hashable {
-    case home, mood, journal, chat
+    case home, mood, journal, chat, profile
 }
 
 struct ContentView: View {
     @State private var selectedTab: MainTab = .home
     @StateObject private var dataService = DataService.shared
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -44,6 +45,13 @@ struct ContentView: View {
                     Text("Chat")
                 }
                 .tag(MainTab.chat)
+            ProfileScreen()
+                .environmentObject(authViewModel)
+                .tabItem {
+                    Image(systemName: "person.circle")
+                    Text("Profile")
+                }
+                .tag(MainTab.profile)
         }
         .accentColor(.purple)
         .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
@@ -54,5 +62,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(AuthViewModel())
     }
 }
