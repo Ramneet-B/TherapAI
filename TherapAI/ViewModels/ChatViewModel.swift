@@ -7,9 +7,16 @@ class ChatViewModel: ObservableObject {
     @Published var inputText: String = ""
     @Published var isLoading: Bool = false
     @Published var currentConversationId: UUID = UUID()
+    @Published var errorMessage: String = ""
+    @Published var showingError: Bool = false
+    @Published var rateLimitStatus: String = ""
+    
+    private let aiService = OpenRouterService.shared
+    private let rateLimiter = RateLimiter.shared
     
     init() {
         loadMessages()
+        updateRateLimitStatus()
         
         // If no conversation exists, create initial AI greeting
         if messages.isEmpty {
@@ -34,24 +41,52 @@ class ChatViewModel: ObservableObject {
         messages.append(userChatMessage)
         isLoading = true
         
-        // Simulate AI response delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.generateAIResponse(to: userMessage)
+        // Generate AI response
+        Task {
+            await generateAIResponse(to: userMessage)
         }
     }
     
-    private func generateAIResponse(to userMessage: String) {
-        let aiResponse = generatePlaceholderResponse(for: userMessage)
+    private func generateAIResponse(to userMessage: String) async {
+        do {
+            let aiResponse = try await aiService.fetchAIResponse(
+                prompt: userMessage,
+                conversationHistory: messages
+            )
+            
+            let aiChatMessage = ChatMessage(
+                content: aiResponse,
+                isFromUser: false,
+                timestamp: Date(),
+                conversationId: currentConversationId
+            )
+            
+            messages.append(aiChatMessage)
+            updateRateLimitStatus()
+            
+        } catch let error as OpenRouterError {
+            handleAIError(error)
+        } catch {
+            handleAIError(.networkError(error))
+        }
         
-        let aiChatMessage = ChatMessage(
-            content: aiResponse,
+        isLoading = false
+    }
+    
+    private func handleAIError(_ error: OpenRouterError) {
+        errorMessage = error.localizedDescription
+        showingError = true
+        
+        // Add fallback response for better UX
+        let fallbackMessage = ChatMessage(
+            content: "I'm sorry, I'm having trouble responding right now. Please try again in a moment, or feel free to continue sharing your thoughts.",
             isFromUser: false,
             timestamp: Date(),
             conversationId: currentConversationId
         )
         
-        messages.append(aiChatMessage)
-        isLoading = false
+        messages.append(fallbackMessage)
+        updateRateLimitStatus()
     }
     
     func loadMessages() {
@@ -63,6 +98,7 @@ class ChatViewModel: ObservableObject {
         currentConversationId = UUID()
         messages.removeAll()
         addInitialGreeting()
+        updateRateLimitStatus()
     }
     
     func deleteMessage(_ message: ChatMessage) {
@@ -85,7 +121,13 @@ class ChatViewModel: ObservableObject {
         messages.append(greeting)
     }
     
-    private func generatePlaceholderResponse(for userMessage: String) -> String {
+    private func updateRateLimitStatus() {
+        let status = aiService.getRateLimitStatus()
+        rateLimitStatus = status.message
+    }
+    
+    // MARK: - Fallback responses (used when AI service is unavailable)
+    private func generateFallbackResponse(for userMessage: String) -> String {
         let message = userMessage.lowercased()
         
         if message.contains("stress") || message.contains("anxiety") {

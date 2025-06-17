@@ -1,0 +1,48 @@
+# Xcode
+DerivedData/
+build/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.xcuserdatad
+*.swp
+*.lock
+.DS_Store
+
+# SwiftPM
+.build/
+.swiftpm/xcode/package.xcworkspace/
+.swiftpm/xcode/xcshareddata/
+.swiftpm/xcode/xcuserdata/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Archives
+*.xcarchive
+
+# Playground
+timeline.xctimeline
+playground.xcworkspace
+
+# SPM
+Package.resolved
+
+# SECURITY: Never commit API keys or secrets
+Secrets.plist
+**/Secrets.plist
+.env
+.env.local
+*.key
+config.json 
