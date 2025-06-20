@@ -45,4 +45,20 @@ Secrets.plist
 .env
 .env.local
 *.key
-config.json 
+config.json
+
+# Firebase
+#
+# Firebase CLI generated files and directories
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Note: GoogleService-Info.plist should be tracked in version control
+# as it contains the Firebase configuration needed for the app to work
+# It does not contain sensitive credentials - those are managed by Firebase Console
+
+# Firebase Functions (if used)
+functions/node_modules/
+functions/.env
+functions/.env.* 

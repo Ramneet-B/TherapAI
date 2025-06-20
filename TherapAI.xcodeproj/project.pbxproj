@@ -10,6 +10,35 @@
 		EFC8C4622DD3C17F004F55B1 /* TherapAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TherapAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXRemoteSwiftPackageReference section */
+		EFC8C4752DD3C200004F55B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End PBXRemoteSwiftPackageReference section */
+
+/* Begin PBXSwiftPackageProductDependency section */
+		EFC8C4782DD3C200004F55B1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFC8C4752DD3C200004F55B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		EFC8C4792DD3C200004F55B1 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFC8C4752DD3C200004F55B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		EFC8C477A2DD3C200004F55B1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFC8C4752DD3C200004F55B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End PBXSwiftPackageProductDependency section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		EFC8C4642DD3C17F004F55B1 /* TherapAI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -65,6 +94,9 @@
 			);
 			name = TherapAI;
 			packageProductDependencies = (
+				EFC8C4782DD3C200004F55B1 /* FirebaseAuth */,
+				EFC8C4792DD3C200004F55B1 /* FirebaseCore */,
+				EFC8C477A2DD3C200004F55B1 /* FirebaseFirestore */,
 			);
 			productName = TherapAI;
 			productReference = EFC8C4622DD3C17F004F55B1 /* TherapAI.app */;
@@ -94,6 +126,9 @@
 			);
 			mainGroup = EFC8C4592DD3C17F004F55B1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EFC8C4752DD3C200004F55B1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EFC8C4632DD3C17F004F55B1 /* Products */;
 			projectDirPath = "";

@@ -6,11 +6,20 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct TherapAIApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject private var authViewModel = AuthViewModel()
+
+    init() {
+        // Configure Firebase
+        FirebaseApp.configure()
+        #if DEBUG
+        print("🔥 Firebase initialized successfully")
+        #endif
+    }
 
     var body: some Scene {
         WindowGroup {
