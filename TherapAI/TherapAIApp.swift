@@ -11,6 +11,7 @@ import SwiftUI
 struct TherapAIApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject private var authViewModel = AuthViewModel()
+    @StateObject private var subscriptionViewModel = SubscriptionViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -28,10 +29,12 @@ struct TherapAIApp: App {
                             print("🔒 App State: Signed Out")
                         }
                 case .signedIn(let user):
-                    ContentView()
+                    MainAppView(user: user)
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        .environmentObject(subscriptionViewModel)
                         .onAppear {
                             print("✅ App State: Signed In - \(user.email)")
+                            subscriptionViewModel.updateUser(user)
                         }
                 }
             }

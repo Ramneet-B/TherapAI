@@ -47,6 +47,8 @@ class AuthViewModel: ObservableObject {
             switch result {
             case .success(let user):
                 print("✅ SignIn Success: \(user.email)")
+                print("🔄 Subscription Status: \(user.subscriptionStatus.displayName)")
+                print("📅 Trial Days Remaining: \(user.trialDaysRemaining)")
                 authState = .signedIn(user)
                 clearForm()
             case .failure(let error):
@@ -80,6 +82,7 @@ class AuthViewModel: ObservableObject {
             switch result {
             case .success(let user):
                 print("✅ SignUp Success: \(user.email)")
+                print("🆕 New User Trial Started: \(user.trialDaysRemaining) days remaining")
                 authState = .signedIn(user)
                 clearForm()
             case .failure(let error):

@@ -72,12 +72,23 @@ class AuthService: ObservableObject {
         }
         
         // Update last login
-        var updatedUser = storedCredentials.user
-        updatedUser = User(
-            id: updatedUser.id,
-            email: updatedUser.email,
-            firstName: updatedUser.firstName,
-            lastName: updatedUser.lastName
+        let updatedUser = User(
+            id: storedCredentials.user.id,
+            email: storedCredentials.user.email,
+            firstName: storedCredentials.user.firstName,
+            lastName: storedCredentials.user.lastName,
+            createdAt: storedCredentials.user.createdAt,
+            lastLoginAt: Date(),
+            subscriptionStatus: storedCredentials.user.subscriptionStatus,
+            trialStartDate: storedCredentials.user.trialStartDate,
+            subscriptionEndDate: storedCredentials.user.subscriptionEndDate
+        )
+        
+        // Update user in database
+        userDatabase[email] = StoredUserCredentials(
+            user: updatedUser,
+            hashedPassword: storedCredentials.hashedPassword,
+            salt: storedCredentials.salt
         )
         
         // Generate and store auth token
