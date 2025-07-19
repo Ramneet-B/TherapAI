@@ -64,7 +64,6 @@ class SubscriptionService: ObservableObject {
                 return price1 < price2
             }
         } catch {
-            print("❌ Failed to load products: \(error)")
             purchaseError = error
         }
     }
@@ -123,7 +122,7 @@ class SubscriptionService: ObservableObject {
                     }
                 }
             } catch {
-                print("❌ Failed to verify transaction: \(error)")
+                // Transaction verification failed
             }
         }
         
@@ -149,7 +148,7 @@ class SubscriptionService: ObservableObject {
                     await self.updateSubscriptionStatus()
                     await transaction.finish()
                 } catch {
-                    print("❌ Transaction failed verification: \(error)")
+                    // Transaction verification failed
                 }
             }
         }
@@ -179,7 +178,6 @@ class SubscriptionService: ObservableObject {
             try await AppStore.sync()
             await updateSubscriptionStatus()
         } catch {
-            print("❌ Failed to restore purchases: \(error)")
             purchaseError = error
         }
     }

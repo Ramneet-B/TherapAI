@@ -24,10 +24,8 @@ class AuthViewModel: ObservableObject {
     
     func checkAuthStatus() {
         if let user = authService.getCurrentUser(), authService.isSignedIn() {
-            print("✅ Found existing user: \(user.email)")
             authState = .signedIn(user)
         } else {
-            print("📝 No existing user found, showing sign-in")
             authState = .signedOut
         }
     }
@@ -46,11 +44,9 @@ class AuthViewModel: ObservableObject {
         await MainActor.run {
             switch result {
             case .success(let user):
-                print("✅ SignIn Success: \(user.email)")
                 authState = .signedIn(user)
                 clearForm()
             case .failure(let error):
-                print("❌ SignIn Error: \(error.localizedDescription)")
                 authState = .error(error.localizedDescription)
                 errorMessage = error.localizedDescription
             }
@@ -79,11 +75,9 @@ class AuthViewModel: ObservableObject {
         await MainActor.run {
             switch result {
             case .success(let user):
-                print("✅ SignUp Success: \(user.email)")
                 authState = .signedIn(user)
                 clearForm()
             case .failure(let error):
-                print("❌ SignUp Error: \(error.localizedDescription)")
                 authState = .error(error.localizedDescription)
                 errorMessage = error.localizedDescription
             }

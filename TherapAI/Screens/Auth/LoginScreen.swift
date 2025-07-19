@@ -98,7 +98,7 @@ struct LoginScreen: View {
                                 .foregroundColor(.secondary)
                             
                             Button(action: {
-                                print("📝 Create Account button tapped")
+        
                                 dismissKeyboard()
                                 withAnimation(.easeInOut(duration: 0.3)) {
                                     isShowingSignUp = true

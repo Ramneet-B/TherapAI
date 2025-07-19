@@ -53,12 +53,10 @@ struct CustomNavigationBar: View {
     var body: some View {
         HStack {
             Button(action: {
-                print("🚫 Cancel button tapped")
                 dismissKeyboard()
                 withAnimation(.easeInOut(duration: 0.3)) {
                     isShowingSignUp = false
                 }
-                print("🚫 isShowingSignUp set to: \(isShowingSignUp)")
             }) {
                 Text("Cancel")
                     .foregroundColor(.purple)

@@ -50,14 +50,12 @@ struct AuthSecureField: View {
                 .autocorrectionDisabled()
                 
                 Button(action: {
-                    print("👁️ Eye button tapped - isSecured: \(isSecured)")
                     let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                     impactFeedback.impactOccurred()
                     
                     withAnimation(.easeInOut(duration: 0.2)) {
                         isSecured.toggle()
                     }
-                    print("👁️ After toggle - isSecured: \(isSecured)")
                 }) {
                     Image(systemName: isSecured ? "eye.slash" : "eye")
                         .foregroundColor(.gray)
@@ -90,10 +88,7 @@ struct AuthButton: View {
     let action: () -> Void
     
     var body: some View {
-        Button(action: {
-            print("🔘 \(title) button tapped")
-            action()
-        }) {
+        Button(action: action) {
             HStack {
                 if isLoading {
                     ProgressView()

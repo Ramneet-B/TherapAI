@@ -18,21 +18,12 @@ struct TherapAIApp: App {
                 switch authViewModel.authState {
                 case .loading:
                     SplashScreen()
-                        .onAppear {
-                            print("🔄 App State: Loading")
-                        }
                 case .signedOut, .error:
                     AuthenticationView()
                         .environmentObject(authViewModel)
-                        .onAppear {
-                            print("🔒 App State: Signed Out")
-                        }
                 case .signedIn(let user):
                     ContentView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                        .onAppear {
-                            print("✅ App State: Signed In - \(user.email)")
-                        }
                 }
             }
             .environmentObject(authViewModel)

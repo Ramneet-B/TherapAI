@@ -22,7 +22,6 @@ class KeychainService {
             let data = try JSONEncoder().encode(value)
             return save(data: data, for: key)
         } catch {
-            print("Failed to encode value for keychain: \(error)")
             return false
         }
     }
@@ -33,7 +32,6 @@ class KeychainService {
         do {
             return try JSONDecoder().decode(type, from: data)
         } catch {
-            print("Failed to decode value from keychain: \(error)")
             return nil
         }
     }

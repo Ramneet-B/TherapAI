@@ -21,18 +21,12 @@ struct AuthenticationView: View {
                             insertion: .move(edge: .trailing),
                             removal: .move(edge: .trailing)
                         ))
-                        .onAppear {
-                            print("📱 Showing SignupScreen")
-                        }
                 } else {
                     LoginScreen(authViewModel: authViewModel, isShowingSignUp: $isShowingSignUp)
                         .transition(.asymmetric(
                             insertion: .move(edge: .leading),
                             removal: .move(edge: .leading)
                         ))
-                        .onAppear {
-                            print("📱 Showing LoginScreen")
-                        }
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: isShowingSignUp)
@@ -45,8 +39,8 @@ struct AuthenticationView: View {
                 }
             }
         }
-        .onChange(of: isShowingSignUp) {
-            print("🔄 isShowingSignUp changed to: \(isShowingSignUp)")
+        .onChange(of: isShowingSignUp) { _ in
+            // View state changed
         }
     }
 }

@@ -31,8 +31,6 @@ struct SecureTextField: View {
             
             // Toggle Button - positioned absolutely to prevent layout conflicts
             Button(action: {
-                print("👁️ Eye button tapped - isSecured: \(isSecured)")
-                
                 // Add haptic feedback
                 let impactFeedback = UIImpactFeedbackGenerator(style: .light)
                 impactFeedback.impactOccurred()
@@ -41,8 +39,6 @@ struct SecureTextField: View {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isSecured.toggle()
                 }
-                
-                print("👁️ After toggle - isSecured: \(isSecured)")
             }) {
                 Image(systemName: isSecured ? "eye.slash" : "eye")
                     .foregroundColor(.gray)
