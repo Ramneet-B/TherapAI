@@ -11,6 +11,7 @@ import SwiftUI
 struct TherapAIApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject private var authViewModel = AuthViewModel()
+    @State private var showingInitialDisclaimer = !UserDefaults.standard.bool(forKey: "hasSeenDisclaimer")
 
     var body: some Scene {
         WindowGroup {
@@ -36,6 +37,12 @@ struct TherapAIApp: App {
                 }
             }
             .environmentObject(authViewModel)
+            .sheet(isPresented: $showingInitialDisclaimer) {
+                DisclaimerView(isPresented: $showingInitialDisclaimer)
+                    .onDisappear {
+                        UserDefaults.standard.set(true, forKey: "hasSeenDisclaimer")
+                    }
+            }
         }
     }
 }

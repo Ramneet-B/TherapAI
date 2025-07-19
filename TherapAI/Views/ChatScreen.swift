@@ -9,6 +9,16 @@ struct ChatScreen: View {
             // Header with rate limit status
             headerView
             
+            // Disclaimer banner
+            VStack(spacing: 0) {
+                CompactDisclaimerBanner()
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
+                
+                Divider()
+            }
+            .background(Color(.systemBackground))
+            
             // Messages
             messagesView
             

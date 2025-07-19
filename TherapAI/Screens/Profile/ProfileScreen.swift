@@ -3,6 +3,8 @@ import SwiftUI
 struct ProfileScreen: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showingSignOutAlert = false
+    @State private var showingDisclaimer = false
+    @State private var showingPrivacyPolicy = false
     
     private var user: User? {
         authViewModel.authState.user
@@ -64,6 +66,41 @@ struct ProfileScreen: View {
                     }
                     .padding(.horizontal)
                     
+                    // App Information & Legal
+                    VStack(spacing: 15) {
+                        SectionHeader(title: "App Information")
+                        
+                        VStack(spacing: 10) {
+                            ProfileActionRow(
+                                icon: "exclamationmark.triangle",
+                                title: "Medical Disclaimers",
+                                subtitle: "Important safety information",
+                                iconColor: .orange
+                            ) {
+                                showingDisclaimer = true
+                            }
+                            
+                            ProfileActionRow(
+                                icon: "lock.shield",
+                                title: "Privacy Policy",
+                                subtitle: "How we protect your data",
+                                iconColor: .green
+                            ) {
+                                showingPrivacyPolicy = true
+                            }
+                            
+                            ProfileActionRow(
+                                icon: "phone.badge.plus",
+                                title: "Crisis Resources",
+                                subtitle: "Emergency support contacts",
+                                iconColor: .red
+                            ) {
+                                showingDisclaimer = true
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    
                     Spacer()
                     
                     // Sign Out Button
@@ -101,6 +138,12 @@ struct ProfileScreen: View {
         } message: {
             Text("Are you sure you want to sign out?")
         }
+        .sheet(isPresented: $showingDisclaimer) {
+            DisclaimerView(isPresented: $showingDisclaimer)
+        }
+        .sheet(isPresented: $showingPrivacyPolicy) {
+            PrivacyPolicyView(isPresented: $showingPrivacyPolicy)
+        }
     }
     
     private func formatDate(_ date: Date) -> String {
@@ -136,6 +179,94 @@ struct ProfileInfoRow: View {
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(10)
+    }
+}
+
+// MARK: - Supporting Views
+
+struct SectionHeader: View {
+    let title: String
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.headline)
+                .fontWeight(.semibold)
+            Spacer()
+        }
+    }
+}
+
+struct ProfileActionRow: View {
+    let icon: String
+    let title: String
+    let subtitle: String
+    let iconColor: Color
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 15) {
+                Image(systemName: icon)
+                    .foregroundColor(iconColor)
+                    .frame(width: 25, height: 25)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                    
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            }
+            .padding()
+            .background(Color(.systemGray6))
+            .cornerRadius(10)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+// Privacy Policy View
+struct PrivacyPolicyView: View {
+    @Binding var isPresented: Bool
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    if let path = Bundle.main.path(forResource: "PrivacyPolicy", ofType: "md"),
+                       let content = try? String(contentsOfFile: path) {
+                        Text(content)
+                            .font(.body)
+                            .padding()
+                    } else {
+                        Text("Privacy Policy content will be loaded here.")
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                            .padding()
+                    }
+                }
+            }
+            .navigationTitle("Privacy Policy")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Close") {
+                        isPresented = false
+                    }
+                }
+            }
+        }
     }
 }
 

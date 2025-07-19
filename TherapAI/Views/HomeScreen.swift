@@ -84,6 +84,45 @@ struct HomeScreen: View {
                 }
                 .padding(.horizontal)
                 
+                // Crisis Resources
+                VStack(spacing: 12) {
+                    HStack {
+                        Image(systemName: "phone.badge.plus")
+                            .foregroundColor(.red)
+                        Text("Need Immediate Help?")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        Spacer()
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        CrisisResourceButton(
+                            title: "Crisis Hotline: 988",
+                            subtitle: "24/7 Suicide & Crisis Lifeline",
+                            action: {
+                                if let url = URL(string: "tel://988") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
+                        )
+                        
+                        CrisisResourceButton(
+                            title: "Crisis Text: HOME to 741741",
+                            subtitle: "Free 24/7 crisis support",
+                            action: {
+                                if let url = URL(string: "sms://741741&body=HOME") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }
+                        )
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+                .background(Color.red.opacity(0.1))
+                .cornerRadius(12)
+                .padding(.horizontal)
+                
                 Spacer()
             }
             .padding()
@@ -122,6 +161,39 @@ struct HomeCard: View {
             .background(Color(.systemBackground))
             .cornerRadius(16)
             .shadow(color: color.opacity(0.3), radius: 5, x: 0, y: 2)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+struct CrisisResourceButton: View {
+    let title: String
+    let subtitle: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.red)
+                    
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "phone.fill")
+                    .foregroundColor(.red)
+                    .font(.title3)
+            }
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(8)
         }
         .buttonStyle(PlainButtonStyle())
     }
