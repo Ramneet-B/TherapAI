@@ -64,6 +64,39 @@ struct ProfileScreen: View {
                     }
                     .padding(.horizontal)
                     
+                    // Subscription Section
+                    VStack(spacing: 15) {
+                        NavigationLink(destination: SubscriptionManagementView()) {
+                            HStack {
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.purple)
+                                    .frame(width: 25, height: 25)
+                                
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Subscription")
+                                        .font(.body)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.primary)
+                                    
+                                    Text("Manage your TherapAI Premium")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.secondary)
+                                    .font(.caption)
+                            }
+                            .padding()
+                            .background(Color(.systemGray6))
+                            .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    .padding(.horizontal)
+                    
                     Spacer()
                     
                     // Sign Out Button

@@ -23,6 +23,9 @@ struct ChatScreen: View {
         } message: {
             Text(chatViewModel.errorMessage)
         }
+        .sheet(isPresented: $chatViewModel.showingPaywall) {
+            PaywallView()
+        }
     }
     
     private var headerView: some View {

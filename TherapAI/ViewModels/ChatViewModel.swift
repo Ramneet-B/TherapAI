@@ -10,9 +10,11 @@ class ChatViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showingError: Bool = false
     @Published var rateLimitStatus: String = ""
+    @Published var showingPaywall: Bool = false
     
     private let aiService = OpenRouterService.shared
     private let rateLimiter = RateLimiter.shared
+    private let subscriptionService = SubscriptionService.shared
     
     init() {
         loadMessages()
@@ -27,6 +29,15 @@ class ChatViewModel: ObservableObject {
     func sendMessage() {
         guard !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
+        // Check premium status and rate limiting
+        let isPremium = subscriptionService.hasActiveSubscription
+        
+        if !isPremium && !rateLimiter.canMakeRequest() {
+            errorMessage = "You've reached your hourly limit of 5 AI conversations. Upgrade to Premium for unlimited access."
+            showingPaywall = true
+            return
+        }
+        
         let userMessage = inputText
         inputText = ""
         
@@ -40,6 +51,11 @@ class ChatViewModel: ObservableObject {
         
         messages.append(userChatMessage)
         isLoading = true
+        
+        // Track rate limiting for non-premium users only
+        if !isPremium {
+            rateLimiter.recordRequest()
+        }
         
         // Generate AI response
         Task {
@@ -122,8 +138,14 @@ class ChatViewModel: ObservableObject {
     }
     
     private func updateRateLimitStatus() {
-        let status = aiService.getRateLimitStatus()
-        rateLimitStatus = status.message
+        let isPremium = subscriptionService.hasActiveSubscription
+        
+        if isPremium {
+            rateLimitStatus = "✨ Premium: Unlimited AI conversations"
+        } else {
+            let status = aiService.getRateLimitStatus()
+            rateLimitStatus = status.message
+        }
     }
     
     // MARK: - Fallback responses (used when AI service is unavailable)
