@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeScreen: View {
     @Binding var selectedTab: MainTab
+    @State private var showingIconGenerator = false
     
     var body: some View {
         NavigationView {
@@ -127,6 +128,63 @@ struct HomeScreen: View {
             }
             .padding()
             .navigationBarHidden(true)
+            .overlay(
+                // TEMPORARY: Icon Generator Button (remove after creating icons)
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button("📱 Generate Icon") {
+                            showingIconGenerator = true
+                        }
+                        .padding()
+                        .background(Color.black.opacity(0.7))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .padding()
+                    }
+                }
+            )
+            .sheet(isPresented: $showingIconGenerator) {
+                // TEMPORARY: Icon Generator (remove after creating icons)
+                NavigationView {
+                    VStack(spacing: 30) {
+                        Text("TherapAI App Icon")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        
+                        Text("Screenshot this icon at 1024×1024 size")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        
+                        AppIconGenerator(size: 300)
+                            .shadow(radius: 10)
+                        
+                        VStack(spacing: 10) {
+                            Text("Instructions:")
+                                .font(.headline)
+                            Text("1. Screenshot this view\n2. Crop to just the icon\n3. Upload to AppIcon.co\n4. Download all sizes\n5. Add to project")
+                                .font(.caption)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                        
+                        Spacer()
+                    }
+                    .padding()
+                    .navigationTitle("Icon Generator")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button("Done") {
+                                showingIconGenerator = false
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
