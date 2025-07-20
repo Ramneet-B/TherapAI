@@ -1,67 +1,77 @@
-Privacy Policy
-This privacy policy applies to the TherapAI app (hereby referred to as "Application") for mobile devices that was created by Ramneet Bhangoo (hereby referred to as "Service Provider") as a Freemium service. This service is intended for use "AS IS".
+# Privacy Policy for TherapAI
 
+**Effective Date:** July 20, 2025
 
-Information Collection and Use
-The Application collects information when you download and use it. This information may include information such as
+TherapAI ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.
 
-Your device's Internet Protocol address (e.g. IP address)
-The pages of the Application that you visit, the time and date of your visit, the time spent on those pages
-The time spent on the Application
-The operating system you use on your mobile device
+---
 
-The Application does not gather precise information about the location of your mobile device.
+## 1. Information We Collect
 
+We collect limited data necessary to operate and improve the app:
 
-The Service Provider may use the information you provided to contact you from time to time to provide you with important information, required notices and marketing promotions.
+- **Device Information**: IP address, operating system version, device model
+- **Usage Data**: Features accessed, session duration, and crash logs
+- **Analytics**: Anonymous usage trends through Google Analytics for Firebase
 
+> We do **not** collect personal identifiers such as names, emails, or health records unless explicitly provided through a feedback form.
 
-For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information. The information that the Service Provider request will be retained by them and used as described in this privacy policy.
+---
 
+## 2. How We Use Your Information
 
-Third Party Access
-Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service. The Service Provider may share your information with third parties in the ways that are described in this privacy statement.
+We use the information collected to:
+- Improve app performance and user experience
+- Monitor bugs and crashes
+- Understand general usage trends
 
+We do **not** sell or share your personal data with third-party advertisers.
 
-Please note that the Application utilizes third-party services that have their own Privacy Policy about handling data. Below are the links to the Privacy Policy of the third-party service providers used by the Application:
+---
 
-Google Analytics for Firebase
+## 3. Third-Party Services
 
-The Service Provider may disclose User Provided and Automatically Collected Information:
+We use the following third-party tools:
+- **Google Analytics for Firebase**  
+  [Firebase Privacy Policy](https://firebase.google.com/support/privacy)
 
-as required by law, such as to comply with a subpoena, or similar legal process;
-when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;
-with their trusted services providers who work on their behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.
+These services may collect data as described in their respective privacy policies.
 
-Opt-Out Rights
-You can stop all collection of information by the Application easily by uninstalling it. You may use the standard uninstall processes as may be available as part of your mobile device or via the mobile application marketplace or network.
+---
 
+## 4. Data Storage & Retention
 
-Data Retention Policy
-The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the Application, please contact them at ramneet200412@gmail.com and they will respond in a reasonable time.
+- Data is securely stored using Firebase services.
+- Anonymous usage data may be retained indefinitely for app improvement.
+- Any optional user-provided data (e.g. mood check-ins) is stored only on your device unless cloud sync is enabled in future versions.
 
+---
 
-Children
-The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13.
+## 5. Children’s Privacy
 
+TherapAI is not intended for users under the age of 13. We do not knowingly collect data from children. If you are a parent or guardian and believe your child has provided personal information, please contact us.
 
-The Application does not address anyone under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children under 13 years of age. In the case the Service Provider discover that a child under 13 has provided personal information, the Service Provider will immediately delete this from their servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact the Service Provider (ramneet200412@gmail.com) so that they will be able to take the necessary actions.
+---
 
+## 6. Data Deletion Requests
 
-Security
-The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.
+You may request deletion of your data by contacting us at:  
+📧 **therapai.support@gmail.com**
 
+We will respond to verified requests within 30 days.
 
-Changes
-This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of any changes to the Privacy Policy by updating this page with the new Privacy Policy. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.
+---
 
+## 7. Changes to This Policy
 
-This privacy policy is effective as of 2025-07-20
+We may update this Privacy Policy periodically. Updates will be posted here with a revised “Effective Date.” Continued use of the app means you accept the changes.
 
+---
 
-Your Consent
-By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.
+## 8. Contact Us
 
+If you have any questions or concerns about this Privacy Policy, please contact us:  
+📧 **therapai.support@gmail.com**
 
-Contact Us
-If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at ramneet200412@gmail.com.
+---
+
